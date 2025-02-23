@@ -188,4 +188,3 @@ Jawaban
 	T terdapat pada biner 101 dan 0100
 	Space terdapat pada biner 010 dan 0000
 	X terdapat pada biner  101 1000
-
