@@ -4,3 +4,5 @@ NRP : 3124521018
 Kelas: Teknik Informatika A PSDKU Lamongan  
 
 - [Pertemuan 1 : Latihan Sistem Bilangan](SistemBilangan.md)
+- [Pertemuan 3 : Flowchart](Computer.md)
+- 
