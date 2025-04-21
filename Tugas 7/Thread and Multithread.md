@@ -1,4 +1,4 @@
-# Single Thread vs Multithread
+# == Single Thread & Multithread ==
 
 ## Single Thread
 
@@ -39,7 +39,7 @@ Multithread memungkinkan program menjalankan **beberapa thread (jalur eksekusi)*
 | Cocok untuk operasi I/O atau tugas berat | Kompleksitas implementasi lebih tinggi |
 | Responsivitas aplikasi lebih baik | Konsumsi memori lebih besar |
 
-### Contoh Penggunaan
+### Contoh Penggunaan  
 - Server web (menangani banyak permintaan sekaligus).
 - Aplikasi GUI (menjaga antarmuka tetap responsif).
 - Game dan pemrosesan multimedia.
@@ -58,5 +58,3 @@ Multithread memungkinkan program menjalankan **beberapa thread (jalur eksekusi)*
 ---
 
 ![FotoSingle&Multi Thread](https://github.com/GapsMyers/SisOp-2025/blob/main/Tugas%207/thread.png)
-
-> **Catatan**: Pemilihan model tergantung pada kebutuhan aplikasi. Single Thread cocok untuk tugas sederhana, sementara Multithread diperlukan untuk optimasi performa pada operasi kompleks.
