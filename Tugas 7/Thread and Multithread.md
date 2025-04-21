@@ -57,6 +57,6 @@ Multithread memungkinkan program menjalankan **beberapa thread (jalur eksekusi)*
 
 ---
 
-![FotoSingle&Multi Thread](https://github.com/GapsMyers/SisOp-25/blob/main/tugas7/thread.png)
+![FotoSingle&Multi Thread](https://github.com/GapsMyers/SisOp-2025/blob/main/Tugas%207/thread.png)
 
 > **Catatan**: Pemilihan model tergantung pada kebutuhan aplikasi. Single Thread cocok untuk tugas sederhana, sementara Multithread diperlukan untuk optimasi performa pada operasi kompleks.
