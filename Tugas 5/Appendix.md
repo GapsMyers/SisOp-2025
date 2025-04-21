@@ -1,6 +1,4 @@
 
-# 🧬 Sejarah Sistem Operasi – Format Menarik
-
 ## A.1 🚀 Migrasi Fitur
 Fitur dari sistem operasi komputer besar seperti **MULTICS** kini digunakan pada perangkat kecil seperti mikrokomputer dan smartphone. UNIX yang terinspirasi dari MULTICS menjadi dasar sistem operasi modern seperti Windows, macOS, dan Linux.
 
