@@ -15,4 +15,4 @@ Kelas: Teknik Informatika A PSDKU Lamongan
     - [PPT evolusi teknologi processor Intel](https://github.com/GapsMyers/SisOp-2025/blob/main/Tugas%207/Evolusi-Teknologi-Prosesor-Intel.pdf)
     - [Practice Exercises](https://github.com/GapsMyers/SisOp-2025/blob/main/Tugas%207/practice%20exercises.md)
 - [Tugas 8 : Cpu Scheduling](https://github.com/GapsMyers/SisOp-2025/blob/main/Tugas%208/CpuScheduling.md)
-- [Pertemuan 12 : SJF & STRF](https://github.com/GapsMyers/SisOp-2025/blob/main/pertemuan%2012/SJF%20%26%20STRF.md)
+- [Tugas 9 : SJF & STRF](https://github.com/GapsMyers/SisOp-2025/blob/main/Tugas%209/SJF%20%26%20STRF.md)
