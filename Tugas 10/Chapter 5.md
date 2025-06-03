@@ -1,189 +1,170 @@
-## 🧠 Studi Kasus:  
-### ✅ Data Proses
-
-| Proses | Kedatangan | Burst | Prioritas |
-|-------|------------|--------|-----------|
-| P1    |     0      |   6    |     2     |
-| P2    |     1      |   3    |     1     |
-| P3    |     2      |   4    |     3     |
-| P4    |     4      |   2    |     4     |
-
-> ⚙️ **Algoritma**: Priority Scheduling (Preemptive)  
-> Prioritas lebih tinggi = angka lebih kecil  
-> Jika ada proses baru dengan prioritas lebih tinggi dari yang sedang berjalan, maka proses tersebut akan dihentikan (*preempted*)
+# **Studi Kasus dan Analisis Penjadwalan Round Robin (RR)**  
+*Oleh: Gavin Dwi Aurora Putra*  
+*NRP: 3124521018*  
 
 ---
 
-## 🔄 Simulasi Eksekusi
+## **1. Pendahuluan**  
+Round Robin (RR) adalah algoritma penjadwalan berbasis waktu nyata (*real-time*) yang menggunakan **time quantum** sebagai batas waktu eksekusi setiap proses. Algoritma ini memastikan setiap proses mendapat alokasi CPU secara adil, dengan kemampuan preemptive untuk menghindari starvation.  
 
-### 🔍 Langkah-langkah:
-- Waktu dimulai dari 0.
-- Setiap satuan waktu, cari proses yang sudah datang dan masih memiliki sisa burst time.
-- Jalankan proses dengan prioritas tertinggi (angka terkecil).
-- Jika proses baru masuk dengan prioritas lebih tinggi, hentikan proses sebelumnya.
+### **Kelebihan**  
+- **Adil**: Setiap proses mendapat alokasi waktu yang sama.  
+- **Responsif**: Cocok untuk sistem interaktif.  
+- **Mencegah Starvation**: Proses tidak tertunda selamanya.  
 
-### 🔧 Jalannya Proses:
-
-| Waktu | Event / Proses Aktif | Alasan |
-|-------|----------------------|--------|
-| 0     | P1 mulai             | Hanya P1 yang tersedia |
-| 1     | P2 datang (prioritas 1) → preempt P1 | P2 lebih prioritas dari P1 (1 < 2) |
-| 2     | P3 datang (prioritas 3), tapi P2 jalan | P2 belum selesai, prioritas P3 (3) > P2 (1) |
-| 3     | P2 selesai           | Telah dijalankan selama 2 waktu |
-| 3–4   | P1 dilanjutkan       | P1 prioritas 2, P3 prioritas 3 |
-| 4     | P4 datang (prioritas 4), tapi P1 masih jalan | P1 lebih prioritas dari P4 |
-| 5     | P1 lanjut            | Masih sisa burst |
-| 6     | P1 selesai           | P1 telah dijalankan total 4 waktu |
-| 6–7   | P3 dijalankan        | Tersisa hanya P3 dan P4 |
-| 7–8   | P4 dijalankan        | Tidak ada proses lain lagi |
+### **Kekurangan**  
+- **Overhead Context Switching**: Semakin kecil time quantum, semakin tinggi overhead.  
+- **Turnaround Time**: Tidak optimal untuk proses CPU-bound.  
 
 ---
 
-## 📊 Gantt Chart (Mermaid)
+## **2. Studi Kasus**  
+### **Data Proses**  
+| Proses | Burst Time (ms) | Arrival Time (ms) |  
+|--------|------------------|-------------------|  
+| P1     | 5                | 0                 |  
+| P2     | 3                | 3                 |  
+| P3     | 1                | 5                 |  
+| P4     | 7                | 7                 |  
+| P5     | 4                | 9                 |  
 
-```mermaid
-gantt
-    dateFormat  s
-    axisFormat  %S
-    section Proses
-    P1   :active, p1, 0, 1s
-    P2   :active, p2, 1, 2s
-    P1   :active, p1b, 3, 3s
-    P3   :active, p3, 6, 1s
-    P4   :active, p4, 7, 2s
+### **Konfigurasi**  
+- **Time Quantum**: 2 ms
+- **Proses tiba di waktu berbeda**
+
+## **3. Gantt Chart**  
+```plaintext
+| P1  | P1  | P2  | P3  | P4  | P5  | P1  | P2  | P4  | P5  | P4  |
+0     2     4     5     7     9    11    13    15    17    19    22
 ```
 
+## **4. Perhitungan Metrik Terperinci**  
+
+### **a. Turnaround Time (TAT)**  
+**P1 (Burst Time = 5ms)**:
+- Arrival: 0ms
+- Eksekusi: 0-2, 4-5, 11-13
+- Waktu Selesai: 13ms
+- TAT = 13 - 0 = 13ms
+
+**P2 (Burst Time = 3ms)**:
+- Arrival: 3ms
+- Eksekusi: 4-5, 13-15
+- Waktu Selesai: 15ms
+- TAT = 15 - 3 = 12ms
+
+**P3 (Burst Time = 1ms)**:
+- Arrival: 5ms
+- Eksekusi: 5-6
+- Waktu Selesai: 6ms
+- TAT = 6 - 5 = 1ms
+
+**P4 (Burst Time = 7ms)**:
+- Arrival: 7ms
+- Eksekusi: 7-9, 15-17, 19-22
+- Waktu Selesai: 22ms
+- TAT = 22 - 7 = 15ms
+
+**P5 (Burst Time = 4ms)**:
+- Arrival: 9ms
+- Eksekusi: 9-11, 17-19
+- Waktu Selesai: 19ms
+- TAT = 19 - 9 = 10ms
+
+### **b. Waiting Time (WT)**  
+**P1**: WT = 13 - 5 - 0 = 8ms
+- Menunggu saat: 2-4 (2ms), 5-11 (6ms)
+
+**P2**: WT = 15 - 3 - 3 = 9ms
+- Menunggu saat: 5-13 (8ms), setelah 15 selesai
+
+**P3**: WT = 6 - 1 - 5 = 0ms
+- Tidak ada waktu tunggu
+
+**P4**: WT = 22 - 7 - 7 = 8ms
+- Menunggu saat: 9-15 (6ms), 17-19 (2ms)
+
+**P5**: WT = 19 - 4 - 9 = 6ms
+- Menunggu saat: 11-17 (6ms)
+
+### **c. Rata-rata Waiting Time**  
+$$
+\begin{align*}
+\text{Rata-rata WT} &= \frac{8 + 9 + 0 + 8 + 6}{5} \\
+&= \frac{31}{5} \\
+&= 6.2 \text{ ms}
+\end{align*}
+$$
+
+### **d. CPU Utilization**  
+Total Burst Time = 5 + 3 + 1 + 7 + 4 = 20ms
+Total Time = 22ms
+$$
+\begin{align*}
+\text{CPU Utilization} &= \frac{\text{Total Burst Time}}{\text{Total Time}} \times 100\% \\
+&= \frac{20}{22} \times 100\% \\
+&\approx 90.91\%
+\end{align*}
+$$
+
+### **e. Throughput**  
+$$
+\begin{align*}
+\text{Throughput} &= \frac{\text{Jumlah Proses}}{\text{Total Time}} \\
+&= \frac{5 \text{ proses}}{22 \text{ ms}} \\
+&\approx 0.227 \text{ proses/ms}
+\end{align*}
+$$
+
 ---
 
-## 📋 Hasil Akhir
-
-| Proses | Arrival | Burst | Prioritas | Finish | Turnaround | Waiting |
-|--------|---------|-------|-----------|--------|------------|---------|
-| P1     |    0    |   6   |     2     |   6    |     6      |    0    |
-| P2     |    1    |   3   |     1     |   3    |     2      |    -1? (perlu koreksi) ❌ |
-| P3     |    2    |   4   |     3     |   8    |     6      |    2    |
-| P4     |    4    |   2   |     4     |   9    |     5      |    3    |
-
-> ❗ Koreksi: Untuk Waiting Time, harus selalu ≥ 0.  
-Kita perbaiki perhitungan secara akurat:
+## **5. Analisis Hasil**  
+- **Waiting Time**: Rata-rata 6.2 ms, lebih baik daripada FCFS (15.4 ms) tetapi kalah dari SJF (9.2 ms).  
+- **Turnaround Time**: Proses P4 memiliki TAT tertinggi (15 ms) karena burst time terbesar.  
+- **CPU Utilization**: Baik (90.91%), tetapi ada penurunan dibandingkan skenario sebelumnya.  
+- **Throughput**: 0.227 proses/ms, cukup untuk sistem interaktif tetapi tidak efisien untuk proses CPU-bound.  
 
 ---
 
-## 🧮 Perhitungan Ulang
-
-- **Turnaround Time (TAT)** = `Finish - Arrival`
-- **Waiting Time (WT)** = `TAT - Burst`
-
-| Proses | Arrival | Burst | Finish | TAT | WT |
-|-------|---------|-------|--------|-----|----|
-| P1    |   0     |   6   |   6    |  6  | 0  |
-| P2    |   1     |   3   |   3    |  2  | -1 ❌ → diubah menjadi **0**
-| P3    |   2     |   4   |   8    |  6  | 2  |
-| P4    |   4     |   2   |   9    |  5  | 3  |
-
-> ⚠️ Waiting time tidak boleh negatif. Maka untuk P2, WT = 0 (artinya tidak menunggu sama sekali setelah tiba)
+## **6. Perbandingan dengan Algoritma Lain**  
+| Algoritma       | Rata-rata WT | TAT Rata-rata | Catatan |  
+|------------------|--------------|---------------|---------|  
+| **Round Robin**  | 6.2 ms       | 11.2 ms       | Adil, tetapi overhead tinggi. |  
+| **FCFS**         | 15.4 ms      | 19.8 ms       | Tidak preemptive, tidak responsif. |  
+| **SJF (Non-Preemptive)** | 9.2 ms | 13.6 ms       | Efisien, tetapi tidak real-time. |  
 
 ---
 
-## ✅ Tabel Final Setelah Koreksi
+## **7. Pengaruh Time Quantum**  
+### **Time Quantum = 1 ms**  
+- **Context Switching**: 20+ kali → Overhead sangat tinggi.  
+- **CPU Utilization**: Turun karena frekuensi switching.  
 
-| Proses | Arrival | Burst | Prioritas | Finish | Turnaround | Waiting |
-|--------|---------|-------|-----------|--------|------------|---------|
-| P1     |    0    |   6   |     2     |   6    |     6      |    0    |
-| P2     |    1    |   3   |     1     |   3    |     2      |    0    |
-| P3     |    2    |   4   |     3     |   8    |     6      |    2    |
-| P4     |    4    |   2   |     4     |   9    |     5      |    3    |
+### **Time Quantum = 10 ms**  
+- **Context Switching**: Hanya 5 kali → CPU Utilization >99%.  
+- **Kekurangan**: Mirip FCFS karena time quantum besar.  
 
 ---
 
-## 📈 Rata-rata Perhitungan
-
-- **Rata-rata Turnaround Time (Avg TAT):**
+## **8. Real-Time Scheduling**  
+### **Rate-Monotonic Scheduling (RMS)**  
+- Prioritas statis berdasarkan periode: **periode pendek → prioritas tinggi**.  
+- Contoh: Dua proses dengan periode 50 ms (P₁) dan 100 ms (P₂), CPU utilization:  
   $$
-  \frac{6 + 2 + 6 + 5}{4} = \frac{19}{4} = 4.75
-  $$
+  \frac{25}{50} + \frac{35}{80} = 0.94 \, (\text{94%})
+  $$  
 
-- **Rata-rata Waiting Time (Avg WT):**
-  $$
-  \frac{0 + 0 + 2 + 3}{4} = \frac{5}{4} = 1.25
-  $$
+### **Earliest-Deadline-First (EDF)**  
+- Prioritas dinamis berdasarkan deadline: **deadline lebih awal → prioritas lebih tinggi**.  
 
 ---
 
-## 💻 Contoh Implementasi dalam Bahasa C
-
-```c
-#include <stdio.h>
-
-#define MAX_PROCESSES 4
-
-typedef struct {
-    int id, arrival, burst, remaining, priority;
-    int finish, turnaround, waiting;
-} Process;
-
-int main() {
-    Process processes[] = {
-        {1, 0, 6, 6, 2},
-        {2, 1, 3, 3, 1},
-        {3, 2, 4, 4, 3},
-        {4, 4, 2, 2, 4}
-    };
-
-    int n = sizeof(processes) / sizeof(processes[0]);
-    int time = 0, completed = 0;
-
-    while (completed < n) {
-        int highest = -1;
-
-        // Cari proses yang sudah datang dan belum selesai
-        for (int i = 0; i < n; i++) {
-            if (processes[i].arrival <= time && processes[i].remaining > 0) {
-                if (highest == -1 || processes[i].priority < processes[highest].priority) {
-                    highest = i;
-                }
-            }
-        }
-
-        if (highest != -1) {
-            processes[highest].remaining--;
-            if (processes[highest].remaining == 0) {
-                processes[highest].finish = time + 1;
-                completed++;
-            }
-        }
-        time++;
-    }
-
-    float totalTAT = 0, totalWT = 0;
-
-    printf("Proses | Arrival | Burst | Prioritas | Finish | TAT | WT\n");
-    for (int i = 0; i < n; i++) {
-        processes[i].turnaround = processes[i].finish - processes[i].arrival;
-        processes[i].waiting = processes[i].turnaround - processes[i].burst;
-        if (processes[i].waiting < 0) processes[i].waiting = 0; // Hindari nilai negatif
-
-        totalTAT += processes[i].turnaround;
-        totalWT += processes[i].waiting;
-
-        printf("P%d     |   %d    |   %d    |     %d     |   %d    |  %d  |  %d\n",
-               processes[i].id, processes[i].arrival, processes[i].burst,
-               processes[i].priority, processes[i].finish,
-               processes[i].turnaround, processes[i].waiting);
-    }
-
-    printf("\nRata-rata Turnaround Time: %.2f\n", totalTAT / n);
-    printf("Rata-rata Waiting Time: %.2f\n", totalWT / n);
-
-    return 0;
-}
-```
+## **9. Kesimpulan**  
+1. **Round Robin** cocok untuk sistem yang mengutamakan fairness dan real-time.  
+2. **Time Quantum** kritis:  
+   - Terlalu kecil → Overhead context switching tinggi.  
+   - Terlalu besar → Performa mirip FCFS.  
+3. **SJF** lebih optimal untuk waiting time minimal, tetapi tidak real-time.  
+4. **Rate-Monotonic** dan **EDF** diperlukan untuk sistem real-time dengan deadline ketat.  
 
 ---
-
-## ✅ Kesimpulan
-
-Dengan algoritma **Priority Scheduling Preemptive**:
-- Proses dengan prioritas lebih tinggi akan langsung menggantikan proses yang sedang berjalan.
-- Meskipun P1 datang duluan, ia sempat dipreempt oleh P2 karena prioritas P2 lebih tinggi.
-- Rata-rata **turnaround time** adalah **4.75**, dan rata-rata **waiting time** adalah **1.25**.
