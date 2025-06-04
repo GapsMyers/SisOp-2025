@@ -38,7 +38,7 @@
 | | ⚡ Single vs Multi Threading | [View →](Tugas%207/Thread%20and%20Multithread.md) |
 | | 💻 Coding Exercises | [View →](Tugas%207/program%20exercise.md) |
 | | 🎯 Practice Tasks | [View →](Tugas%207/practice%20exercises.md) |
-| | 📊 Intel CPU Evolution | [Download →](Tugas%207/Evolusi-Teknologi-Prosesor-Intel.pdf) |
+| | 📊 Intel CPU Evolution | [View →](Tugas%207/Evolusi-Teknologi-Prosesor-Intel.pdf) |
 
 </details>
 
