@@ -75,5 +75,5 @@
 
 ---
 <div align="center">
-  Made with ❤️ by <a href="https://github.com/GapsMyers">Gavin Dwi Aurora Putra</a>
+  Made by <a href="https://github.com/GapsMyers">Gavin Dwi Aurora Putra</a>
 </div>
