@@ -3,7 +3,7 @@
 
 <div align="center">
   
-  ![OS Banner](https://img.shields.io/badge/Operating%20Systems-2023%2F2024-00B4D8?style=for-the-badge&logo=windows&logoColor=white)
+  ![OS Banner](https://img.shields.io/badge/Operating%20Systems-2024%2F2026-00B4D8?style=for-the-badge&logo=windows&logoColor=white)
 
   [![Student](https://img.shields.io/badge/Name-Gavin%20Dwi%20Aurora%20Putra-success?style=flat-square&logo=microsoft-academic&logoColor=white)](https://github.com/GapsMyers)
   [![ID](https://img.shields.io/badge/NRP-3124521018-blue?style=flat-square&logo=identity&logoColor=white)](https://github.com/GapsMyers)
